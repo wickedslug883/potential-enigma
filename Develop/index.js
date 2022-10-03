@@ -1,13 +1,62 @@
-// TODO: Include packages needed for this application
+const fs = require('fs');
+const inquirer = require('inquirer');
+const generateMarkdown = require('./utils/generateMarkdown');
+// User prompt
+inquirer.prompt ([ 
+{
+    type: 'input',
+    name: 'title',
+    message: 'Create title for project'
+},
 
-// TODO: Create an array of questions for user input
-const questions = [];
+{
+    type: 'input',
+    name: 'description',
+    message: 'Enter description of project'
+},
 
-// TODO: Create a function to write README file
-function writeToFile(fileName, data) {}
+{
+    type: 'input',
+    name: 'install',
+    message: 'Enter the installation instructions'
+},
 
-// TODO: Create a function to initialize app
-function init() {}
+{
+    type: 'input',
+    name: 'usage',
+    message: 'Describe use of project'
+},
 
-// Function call to initialize app
-init();
+{
+    type: 'input',
+    name: 'contribution',
+    message: 'How should someone contribute to this project?'
+},
+
+{
+    type: 'input',
+    name: 'test',
+    message: 'Enter test instructions'
+},
+
+{
+    type: 'list',
+    name: 'license',
+    message: 'Choose a license',
+    choices: ['Apache', 'MIT', 'Mozilla-Public', 'GNU-General-Public', 'None']
+},
+
+{
+    type: 'input',
+    name: 'github',
+    message: 'Enter GitHub username'
+},
+
+{
+    type: 'input',
+    name: 'email',
+    message: 'Enter email address'
+},
+]).then((answers) => fs.writeFileSync('./utils/generatedREADME.md', generateMarkdown(answers)))
+.then(() => console.log('README file was created!'))
+.catch((e) => console.log(err));
